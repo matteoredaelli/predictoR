@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>predictoR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="forecast long term prediction">
+    <meta name="author" content="Matteo Redaelli">
+
+    <!-- Le styles -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <style type="text..//css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="../css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+<%
+GET <- req$GET()
+ts <- ifelse(is.null(GET$ts), "1\n2", GET$ts)
+params <- ifelse(is.null(GET$params),"", GET$params)
+period.start <- ifelse(is.null(GET$period.start),"2012-01", GET$period.start)
+period.freq <- ifelse(is.null(GET$period.freq),"12", GET$period.freq)
+options(hverbose=FALSE,verbose=FALSE)
+%>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">predictoR</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="index.rhtml">Home</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">predictoR</a></li>
+                  <li><a href="#">ltp</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <b>predictoR: a forecasting (Long Term Prediction) tool for time series</b>
+        <p>
+	  <form class="form-inline">
+	    <textarea name="ts" rows="15"><%=ts%></textarea>
+	    <textarea name="params" rows="15"><%=params%></textarea>
+	    <br />Period: start <input type="text" class="input-small" name="period.start" value="<%=period.start%>"> freq <input type="text" class="input-small" name="period.freq" value="<%=period.freq%>">
+	    <br /><br />
+	    <button type="submit" class="btn btn-primary btn-large">Go</button>
+	  </form>
+
+	</p>
+      </div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span4">
+          <h2>Heading</h2>
+          <p></p>
+        </div>
+        <div class="span4">
+          <h2>Heading</h2>
+          <p></p>
+       </div>
+        <div class="span4">
+          <h2>Heading</h2>
+          <p></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; Matteo Redaelli 2012, GPL V3+ license</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="../js/bootstrap.js"></script>
+  </body>
+</html>
