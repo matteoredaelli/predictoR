@@ -9,7 +9,7 @@
 
     <!-- Le styles -->
     <link href="../css/bootstrap.css" rel="stylesheet">
-    <style type="text..//css">
+    <style type="text../css">
       body {
         padding-top: 60px;
         padding-bottom: 40px;
@@ -32,11 +32,43 @@
 
   <body>
 <%
+
 GET <- req$GET()
-ts <- ifelse(is.null(GET$ts), "1\n2", GET$ts)
-params <- ifelse(is.null(GET$params),"", GET$params)
-period.start <- ifelse(is.null(GET$period.start),"2012-01", GET$period.start)
-period.freq <- ifelse(is.null(GET$period.freq),"12", GET$period.freq)
+
+sep.decimal.default <- "."
+ts.default <- "1.1\n1.5\n1.9\n.3\n1.1\n1.5\n1.9\n0.3\n"
+params.default <- "try.models=c('mean','trend','lm','es','arima','naive')
+n.ahead=6
+range=c(-Inf,Inf)
+NA2value=0
+n.min=5
+naive.values='lastPeriod'
+naive.ifConstantLastValues=12
+naive.ifConstant0LastValues=12
+logtransform=FALSE
+stepwise = TRUE
+formula.right.lm='S*trend+S*trend2'
+rule='BestAIC'
+rule.noMaxCVOver=2
+rule.noMaxJumpOver=3
+negTo0=FALSE
+toInteger=FALSE"
+
+period.freq.default = "12"
+period.start.default <- "2012-01"
+
+ts <- ifelse(is.null(GET$ts), ts.default, GET$ts)
+params <- ifelse(is.null(GET$params), params.default, GET$params)
+period.start <- ifelse(is.null(GET$period.start), 
+		       period.start.default, 
+                       GET$period.start)
+period.freq <- ifelse(is.null(GET$period.freq),
+                      period.freq.default, 
+                      GET$period.freq)
+sep.decimal <- ifelse(is.null(GET$sep.decimail),
+                      sep.decimal.default, 
+                      GET$sep.decimal)
+
 options(hverbose=FALSE,verbose=FALSE)
 %>
 
@@ -74,10 +106,67 @@ options(hverbose=FALSE,verbose=FALSE)
 	  <form class="form-inline">
 	    <textarea name="ts" rows="15"><%=ts%></textarea>
 	    <textarea name="params" rows="15"><%=params%></textarea>
+	    <br />Separator: decimal <input type="text" class="input-small" name="sep.decimal" value="<%=sep.decimal%>">
 	    <br />Period: start <input type="text" class="input-small" name="period.start" value="<%=period.start%>"> freq <input type="text" class="input-small" name="period.freq" value="<%=period.freq%>">
 	    <br /><br />
-	    <button type="submit" class="btn btn-primary btn-large">Go</button>
+	    <button type="submit" class="btn btn-primary btn-large" name="go">Go</button>
 	  </form>
+
+<%
+  if( !is.null(GET)) {
+
+    ts.string <- ts
+    ts.string = gsub(sep.decimal, ".", ts.string)
+    ts.string = gsub("\r\n", ",", ts.string)
+    ts.string = gsub("\r", ",", ts.string)
+    ts.string = gsub("\n", ",", ts.string)
+    ts.string = gsub(" ", "", ts.string)
+    ts.string = gsub(",[,]+", ",",  ts.string)
+
+    ts.values <- unlist(lapply(strsplit(ts.string, ","), as.numeric))
+
+
+
+    period.start.run <- Period.FromString(period.start)
+    period.freq.run <- as.integer(period.freq)
+
+    ts.periods <- Period.BuildRange(period.start.run, period.freq.run, length(ts.values))
+
+    
+    params.run <- params
+    params.run = gsub("\r", ";", params.run)
+    params.run = gsub("\n", ";", params.run)
+    params.run = gsub(" ", "", params.run)
+    params.run = gsub(";[;]+", ";", params.run)
+    eval(parse(text=params.run))
+
+    item.data <- cbind(ts.values)
+    rownames(item.data) <-ts.periods
+    colnames(item.data) <- "V"
+
+    period.end.string <- rownames(item.data)[ length(ts.periods)]
+    period.end.run <- unlist(lapply(strsplit(period.end.string, "-"), as.numeric))
+ 
+    cat("<br />Running ltp ...")
+    model <- ltp(product = item.data, rule=rule,
+               ruleSetting=list(rule.noMaxCVOver=rule.noMaxCVOver,rule.noMaxJumpOver=rule.noMaxJumpOver),
+               try.models = try.models, n.ahead = n.ahead, n.min = n.min,
+               NA2value = NA2value, range = range, period.freq = period.freq.run,
+               period.start = period.start.run, period.end = period.end.run,
+               diff.sea=1,diff.trend=1,max.p=2,max.q=1,max.P=0,max.Q=1, logtransform.es=FALSE,
+               increment=1 ,idDiff = FALSE, idLog = FALSE,
+               formula.right.lm = formula.right.lm,stepwise=stepwise,
+               logtransform=logtransform, negTo0=negTo0, toInteger=toInteger,
+               naive.values=naive.values,
+               naive.ifConstantLastValues=naive.ifConstantLastValues,
+               naive.ifConstant0LastValues=naive.ifConstant0LastValues)
+
+
+   print(model@BestModel)
+
+  }
+
+%>
 
 	</p>
       </div>
