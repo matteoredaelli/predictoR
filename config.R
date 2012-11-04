@@ -1,4 +1,6 @@
 library(ltp)
+library(ast)
+
 dir.create(file.path(tempdir(),'plots'),showWarnings=FALSE)
 app <- Builder$new(
     Static$new(
