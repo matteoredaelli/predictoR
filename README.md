@@ -5,6 +5,8 @@ predictoR is a forecasting tool (written in R >= 2.15.1) for time series: it use
 
 It provides a web interface thorugh [Rook](http://cran.r-project.org/web/packages/Rook/), the internal web server of R. 
 
+Tested with: Linux, not yet with Windows
+
 Download predictoR, lunch it with
 
   RScript rook-start.R
