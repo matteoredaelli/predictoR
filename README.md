@@ -1,7 +1,7 @@
 predictoR
 =========
 
-predictoR is a forecasting tool (written in R >= 2.15.1) for time series: it uses the LTP (Long Term Prediction) toolR package from ltp.googlecode.com
+predictoR is a forecasting tool (written in R >= 2.15.1) for time series: it uses the [LTP (Long Term Prediction)](ltp.googlecode.com) R package
 
 
 Downloand predictoR, lunch it with
@@ -10,7 +10,7 @@ Downloand predictoR, lunch it with
 
 and then open the url
 
-  http://localhost:8000/custom/predictoR/
+  [http://localhost:8000/custom/predictoR/](http://localhost:8000/custom/predictoR/)
 
 with your preferred browser (Chrome or Firefox are recommended, please avoid Internet Explorer with has not good support form HTML5)
 
