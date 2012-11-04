@@ -1,7 +1,7 @@
 predictoR
 =========
 
-predictoR is a forecasting tool (written in R >= 2.15.1) for time series: it uses the [LTP (Long Term Prediction)](ltp.googlecode.com) R package
+predictoR is a forecasting tool (written in R >= 2.15.1) for time series: it uses the [LTP (Long Term Prediction)](http://ltp.googlecode.com) R package
 
 
 Downloand predictoR, lunch it with
