@@ -148,9 +148,8 @@ options(hverbose=FALSE,verbose=FALSE)
     period.end.string <- rownames(item.data)[ length(ts.periods)]
     period.end.run <- unlist(lapply(strsplit(period.end.string, "-"), as.numeric))
  
-    cat("<br />Running ltp ...")
+    cat("<br />Running ltp ... Be patient, the results will appear below...")
 
-    
     formula.right.lm <- ifelse(period.freq==1, "trend+trend2", "S*trend+S*trend2")
                                    
     model <- ltp(product = item.data, rule=rule,
@@ -167,7 +166,9 @@ options(hverbose=FALSE,verbose=FALSE)
                naive.ifConstant0LastValues=naive.ifConstant0LastValues)
    model.df <- modelToListOfDF(model, period.freq=period.freq.run, param=Param.FromString(params.run), id=1)
 
-   model.html5 <- modelToHtml5(model, period.freq=period.freq.run, param=Param.FromString(params.run), id=1, img.options=list(width=850, height=500, legend="bottom", gvis.editor="Editor"))
+   model.html5 <- modelToHtml5(model, period.freq=period.freq.run, 
+		  param=Param.FromString(params.run), id=1, 
+		  img.options=list(width=850, height=500, legend="bottom", gvis.editor="Editor"))
    cat(model.html5)
 
   }

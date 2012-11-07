@@ -1,5 +1,5 @@
-library(ltp)
 library(ast)
+library(ltp)
 
 dir.create(file.path(tempdir(),'plots'),showWarnings=FALSE)
 app <- Builder$new(
