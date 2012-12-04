@@ -1,4 +1,3 @@
-library(ast)
 library(ltp)
 
 dir.create(file.path(tempdir(),'plots'),showWarnings=FALSE)
