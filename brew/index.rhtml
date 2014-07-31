@@ -2,10 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>predictoR</title>
+    <title>predictoR: long term prediction over times eries</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="forecast long term prediction">
+    <meta name="description" content="forecasting, long term prediction of time series">
     <meta name="author" content="Matteo Redaelli">
+    <meta name="keywords" content="R,opensource,time series forecasting,long term prediction over time series, arima model, linear model,naive model">
 
     <!-- Le styles -->
     <link href="../css/bootstrap.css" rel="stylesheet">
@@ -31,6 +32,9 @@
   </head>
 
   <body>
+    <script type="text/javascript">
+      window.google_analytics_uacct = "UA-2387554-11";
+    </script>
 <%
 
 GET <- req$GET()
@@ -101,11 +105,25 @@ options(hverbose=FALSE,verbose=FALSE)
 
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
-        <b>predictoR: a tool for Long Term Predictions over time series</b>
+	<script type="text/javascript"><!--
+					   google_ad_client = "ca-pub-2729401952108622";
+					   google_ad_host = "ca-host-pub-1556223355139109";
+					   google_ad_host_channel = "L0005";
+					   /* top-twitter-users_crosscol_AdSense1_468x60_as */
+					   google_ad_slot = "9064256841";
+					   google_ad_width = 468;
+					   google_ad_height = 60;
+					   //-->
+	</script>
+	<script type="text/javascript"
+		src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
+
         <p>
+          <b>predictoR: time series forecasting</b>
 	  <form class="form-inline">
-	    <textarea name="ts" rows="15"><%=ts%></textarea>
-	    <textarea name="params" rows="15"><%=params%></textarea>
+	    <textarea name="ts" rows="10"><%=ts%></textarea>
+	    <textarea name="params" rows="10"><%=params%></textarea>
 	    <br />Separator: decimal <input type="text" class="input-small" name="sep.decimal" value="<%=sep.decimal%>">
 	    <br />Period: start <input type="text" class="input-small" name="period.start" value="<%=period.start%>"> freq <input type="text" class="input-small" name="period.freq" value="<%=period.freq%>">
 	    <br /><br />
@@ -207,7 +225,19 @@ options(hverbose=FALSE,verbose=FALSE)
         </div>
       </div>
 
-      <hr>
+	<script type="text/javascript"><!--
+					   google_ad_client = "ca-pub-2729401952108622";
+					   google_ad_host = "ca-host-pub-1556223355139109";
+					   google_ad_host_channel = "L0001";
+					   /* top-twitter-users_sidebar-right-1_AdSense3_250x250_as */
+					   google_ad_slot = "9392963249";
+					   google_ad_width = 250;
+					   google_ad_height = 250;
+					   //-->
+	</script>
+	<script type="text/javascript"
+		src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+	</script>
 
       <footer>
         <p>&copy; Matteo Redaelli - 2012, GPL V3+ license</p>
@@ -215,10 +245,22 @@ options(hverbose=FALSE,verbose=FALSE)
 
     </div> <!-- /container -->
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="../js/bootstrap.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-2387554-11', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
   </body>
 </html>
