@@ -2,11 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>predictoR: long term prediction over times eries</title>
+    <title>predictoR: times series forecasting</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="forecasting, long term prediction of time series">
     <meta name="author" content="Matteo Redaelli">
-    <meta name="keywords" content="R,opensource,time series forecasting,long term prediction over time series, arima model, linear model,naive model">
+    <meta name="keywords" content="R,opensource,time series forecasting,long term prediction,statisticts,exponential smoothing, arima model, linear model,naive model">
 
     <!-- Le styles -->
     <link href="../css/bootstrap.css" rel="stylesheet">
@@ -37,7 +37,7 @@
     </script>
 <%
 
-GET <- req$GET()
+POST <- req$POST()
 
 sep.decimal.default <- "."
 ts.default <- paste(round(runif(20, 2.0, 7.5),2), collapse="\n")
@@ -60,17 +60,17 @@ toInteger=FALSE"
 period.freq.default = "2"
 period.start.default <- "1990-1"
 
-ts <- ifelse(is.null(GET$ts), ts.default, GET$ts)
-params <- ifelse(is.null(GET$params), params.default, URLdecode(GET$params))
-period.start <- ifelse(is.null(GET$period.start), 
+ts <- ifelse(is.null(POST$ts), ts.default, POST$ts)
+params <- ifelse(is.null(POST$params), params.default, URLdecode(POST$params))
+period.start <- ifelse(is.null(POST$period.start), 
 		       period.start.default, 
-                       GET$period.start)
-period.freq <- ifelse(is.null(GET$period.freq),
+                       POST$period.start)
+period.freq <- ifelse(is.null(POST$period.freq),
                       period.freq.default, 
-                      GET$period.freq)
-sep.decimal <- ifelse(is.null(GET$sep.decimail),
+                      POST$period.freq)
+sep.decimal <- ifelse(is.null(POST$sep.decimail),
                       sep.decimal.default, 
-                      GET$sep.decimal)
+                      POST$sep.decimal)
 
 options(hverbose=FALSE,verbose=FALSE)
 %>
@@ -121,17 +121,17 @@ options(hverbose=FALSE,verbose=FALSE)
 
         <p>
           <b>predictoR: time series forecasting</b>
-	  <form class="form-inline">
-	    <textarea name="ts" rows="10"><%=ts%></textarea>
-	    <textarea name="params" rows="10"><%=params%></textarea>
+	  <form class="form-inline"  method="post">
+	    <textarea name="ts" rows="8"><%=ts%></textarea>
+	    <textarea name="params" rows="8"><%=params%></textarea>
 	    <br />Separator: decimal <input type="text" class="input-small" name="sep.decimal" value="<%=sep.decimal%>">
-	    <br />Period: start <input type="text" class="input-small" name="period.start" value="<%=period.start%>"> freq <input type="text" class="input-small" name="period.freq" value="<%=period.freq%>">
+	    Period: start <input type="text" class="input-small" name="period.start" value="<%=period.start%>"> freq <input type="text" class="input-small" name="period.freq" value="<%=period.freq%>">
 	    <br /><br />
-	    <button type="submit" class="btn btn-primary btn-large" name="go">Go</button>
+	    <button type="submit" class="btn btn-primary btn-large" name="go">Start Forecasting</button>
 	  </form>
 
 <%
-  if( !is.null(GET$go)) {
+  if( !is.null(POST$go)) {
 
     ts.string <- ts
     if(sep.decimal != ".")
